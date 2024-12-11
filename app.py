@@ -23,24 +23,34 @@ def index():
             return render_template('exception.html')
 
         result1 = check_weather(
-            city1_weather_data['temperature'],
-            city1_weather_data['wind_speed'],
-            city1_weather_data['precipitation_prob'],
+            city1_weather_data['temperature'], 
+            city1_weather_data['wind_speed'], 
+            city1_weather_data['precipitation_prob'], 
             city1_weather_data['humidity']
         )
         result2 = check_weather(
-            city2_weather_data['temperature'],
-            city2_weather_data['wind_speed'],
-            city2_weather_data['precipitation_prob'],
+            city2_weather_data['temperature'], 
+            city2_weather_data['wind_speed'], 
+            city2_weather_data['precipitation_prob'], 
             city2_weather_data['humidity']
         )
 
         if result1 == result2 and result1 == 'Хорошая погода':
-            return render_template('result.html', result="Погода хороша, приятного путешествия!")
+            result = "Погода — супер!"
         else:
-            return render_template('result.html', result="Погода не очень, советую посидеть дома(")
+            result = "Ой-ой, погода плохая"
+
+        return render_template(
+            'result.html', 
+            result=result, 
+            city1_weather_data=city1_weather_data, 
+            city2_weather_data=city2_weather_data, 
+            start_location=start_location, 
+            end_location=end_location
+        )
 
     return render_template('index.html')
+
 
 def main():
     app.run(debug=True)
